@@ -34,5 +34,4 @@ It facilitates users to manage their revenue and expenses, cash flow, long-term 
 
 <h2 align="center">
     <img src="src/assets/images/finance_desktop.png" height="220px">
-    <div style="background-color:#593481" width="310px"><a href="https://financemanager.amirtha.ml" style="color:white">View Demo</a></div>
 </h2>

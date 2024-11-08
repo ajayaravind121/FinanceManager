@@ -1,0 +1,145 @@
+<div id="summary">
+    <nav id="top-nav" class="navbar navbar-expand-lg fixed-top">
+        <div class="ml-auto">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a class="nav-link text-white">
+                        08/2020
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="nav-link" routerLink='/notification'>
+                        <i class="far fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="row justify-content-center">
+    <div id="main" class="container-fluid rounded mt-5 p-0 pt-5">
+        <!-- transact credit debit -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 mb-5 p-1" style="margin: auto">
+            <div *ngFor="let chart of transactionData; let i = index" class="col mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ chart.month }}</h5>
+                    </div>
+                    <div>
+                        <canvas id="mychart{{i}}" #mycharts>
+                            {{chart.chart}}
+                        </canvas>
+                    </div>
+                    <div class="card-body">
+                        <div class="row p-0 m-0">
+                            <p class="text-secondary text-nowrap mb-2 col text-center">
+                                <i class="fas fa-arrow-up"></i>
+                                <strong> Expenses:</strong> 
+                                ₹{{ chart.totalExpenses }}
+                            </p>
+                            <p class="text-secondary text-nowrap mb-2 col text-center">
+                                <i class="fas fa-arrow-down"></i>
+                                <strong> Incomes:</strong>
+                                ₹{{ chart.totalIncomes }}
+                            </p>
+                        </div>
+                        <div class="row p-0 m-0">
+                            <p class="text-secondary col text-center">
+                                <strong>Σ Total:</strong> 
+                                ₹{{ chart.totalIncomes - chart.totalExpenses }}
+                            </p>
+                            <p class="text-secondary col text-center">
+                                <strong> Transactions:</strong> 
+                                {{ chart.transactions }}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav id="create-nav" class="navbar navbar-expand-lg fixed-bottom w-25 mb-5 ml-auto text-warning">
+    <div class="ml-auto pr-4 pb-4">
+        <a routerLink="/create" (click)="enableComponent()" class="text-warning">
+            <i class="fas fa-plus-circle bg-white rounded-circle" style="font-size: 45px;"></i>
+        </a>
+    </div>
+</nav>
+
+<nav id="view-status-nav" class="navbar navbar-expand-lg fixed-bottom w-75 mb-5 pl-1 mr-auto">
+    <div id="accordion" class="mr-auto">
+        <a class="text-warning" data-toggle="collapse" data-parent="#accordion" href="#status">
+            <div class="bg-default-header text-white rounded-top">
+                <span class="mb-0 pl-3 pr-5 text-nowrap">
+                    <span><i class="fas fa-wallet"></i> &nbsp; Wallet</span>
+                </span>
+                <span class="pr-2 float-right"><i class="fas fa-times"></i></span>
+            </div>
+        </a>
+
+        <div id="status" class="collapse-status collapse">
+            <div class="mb-0 bg-light text-left text-nowrap rounded" data-toggle="collapse" href="" role="button" aria-expanded="false">
+                <div class="current-status">
+                    <p class="mb-0 p-1 pl-3 text-white">Available</p>
+                    <p class="mb-0 p-1 pl-3 text-white"><small>Until 30-09-2020</small></p>
+                    <p class="mb-0 p-1 pl-3 text-white">₹ 20,00,000</p>
+                </div>
+                <div class="bg-white border rounded-bottom">
+                    <p class="mb-0 p-1 pl-3 pt-3">
+                        <i class="fas fa-money-bill-wave text-dark-default"></i>
+                        <span class="pl-1 text-secondary">Current</span>
+                        <span class="ml-5 mr-3 text-secondary">₹16,995.00</span>
+                    </p>
+                    <p class="mb-0 p-1 pl-3 pb-3">
+                        <i class="fas fa-clock text-dark-default"></i>
+                        <span class="pl-2 text-secondary">Planned</span>
+                        <span class="ml-5 mr-3 text-secondary">₹20,995.00</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Bottom Navigations -->
+<nav id="bottom-nav" class="navbar navbar-expand-lg fixed-bottom text-nowrap p-0">
+    <div class="mx-auto">
+        <ul class="list-inline mb-0">
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/desktop'>
+                    <i class="fas fa-home"></i>
+                    <br>
+                    Transaction
+                </a>
+            </li>
+
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/review'>
+                    <i class="fas fa-tags"></i>
+                    <br>
+                    Review
+                </a>
+            </li>
+
+            <li id="current-page" class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0 text-white" routerLink='/summary'>
+                    <i class="fas fa-chart-bar"></i>
+                    <br>
+                    Summary
+                </a>
+            </li>
+
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink="/report">
+                    <i class="fas fa-chart-pie"></i>
+                    <br>
+                    Reports
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,147 @@
+<div id="review">
+    <nav id="top-nav" class="navbar navbar-expand-lg fixed-top">
+        <div class="ml-auto">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a class="nav-link text-white">
+                        08/2020
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="nav-link" routerLink='/notification'>
+                        <i class="far fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="row justify-content-center">  
+    <div id="basic" class="container rounded mt-5 mb-5 p-0 pt-5 pb-5 main line-border">
+        <div id="accordion" class="mt-5 mb-5">
+            <div class="card" *ngFor="let data of categorizedTransactions">
+                <div *ngFor="let parent of data | keyvalue">
+                    <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#{{parent.key}}">
+                        <div class="card-header bg-white">
+                            <div class="row h-100 pl-2 pr-2">
+                                <span [style.background-color]="parent.value.color" class="category-icon rounded-circle p-2 pl-3 pr-3">{{ parent.value.name | uppercase | slice:0:1 }}</span>
+                                <span class="ml-3 my-auto category-title">{{ parent.value.name | titlecase }}</span>
+                                <span class="my-auto ml-auto" *ngIf="parent.value.grandTotal == 0">₹0.00</span>
+                                <span class="my-auto ml-auto text-success" *ngIf="parent.value.grandTotal > 0">₹{{ Math.abs(parent.value.grandTotal) }}</span>
+                                <span class="my-auto ml-auto text-danger" *ngIf="0 > parent.value.grandTotal">- ₹{{ Math.abs(parent.value.grandTotal) }}</span>
+                            </div>
+                        </div> 
+                    </a>
+                    <div id="{{parent.key}}" class="collapse">
+                        <div class="card-body"> 
+                            <ul class="list-unstyled mb-0 col">
+                                <li class="p-2 row text-center" *ngFor="let detail of parent.value.info; let i=index">
+                                    <div>
+                                        <span [style.background-color]="detail.category.color" class="category-icon rounded-circle p-2 pl-3 pr-3">{{ detail.category.name | uppercase | slice:0:1 }}</span>
+                                    </div>
+                                    <div class="main-content w-50 m-0 my-auto mr-auto">
+                                        <a data-toggle="collapse" href="" role="button" aria-expanded="false">
+                                            <p class="mb-0 text-dark text-left pl-4 text-nowrap">{{ detail.category.name | titlecase }}</p>
+                                        </a>  
+                                    </div>
+                                    <div class="main-content my-auto">
+                                        <a>
+                                            <p class="mb-0" *ngIf="detail.total == 0">₹0.00</p>
+                                            <p class="mb-0 text-success" *ngIf="detail.total > 0">₹{{ Math.abs(detail.total) }}</p>
+                                            <p class="mb-0 text-danger" *ngIf="0 > detail.total">- ₹{{ Math.abs(detail.total) }}</p>                        
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<nav id="create-nav" class="navbar navbar-expand-lg fixed-bottom w-25 mb-5 ml-auto text-warning">
+    <div class="ml-auto pr-4 pb-4">
+        <a routerLink="/create" (click)="enableComponent()" class="text-warning">
+            <i class="fas fa-plus-circle bg-white rounded-circle" style="font-size: 45px;"></i>
+        </a>
+    </div>
+</nav>
+
+<nav id="view-status-nav" class="navbar navbar-expand-lg fixed-bottom w-75 mb-5 pl-1 mr-auto">
+    <div id="accordion" class="mr-auto">
+        <a class="text-warning" data-toggle="collapse" data-parent="#accordion" href="#status">
+            <div class="bg-default-header text-white rounded-top">
+                <span class="mb-0 pl-3 pr-5 text-nowrap">
+                    <span><i class="fas fa-wallet"></i> &nbsp; Wallet</span>
+                </span>
+                <span class="pr-2 float-right"><i class="fas fa-times"></i></span>
+            </div>
+        </a>
+
+        <div id="status" class="collapse-status collapse">
+            <div class="mb-0 bg-light text-left text-nowrap rounded" data-toggle="collapse" href="" role="button"
+                aria-expanded="false">
+                <div class="current-status">
+                    <p class="mb-0 p-1 pl-3 text-white">Available</p>
+                    <p class="mb-0 p-1 pl-3 text-white"><small>Until 30-09-2020</small></p>
+                    <p class="mb-0 p-1 pl-3 text-white">₹ 20,00,000</p>
+                </div>
+                <div class="bg-white border rounded-bottom">
+                    <p class="mb-0 p-1 pl-3 pt-3">
+                        <i class="fas fa-money-bill-wave text-dark-default"></i>
+                        <span class="pl-1 text-secondary">Current</span>
+                        <span class="ml-5 mr-3 text-secondary">₹16,995.00</span>
+                    </p>
+                    <p class="mb-0 p-1 pl-3 pb-3">
+                        <i class="fas fa-clock text-dark-default"></i>
+                        <span class="pl-2 text-secondary">Planned</span>
+                        <span class="ml-5 mr-3 text-secondary">₹20,995.00</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Bottom Navigations -->
+<nav id="bottom-nav" class="navbar navbar-expand-lg fixed-bottom text-nowrap p-0">
+    <div class="mx-auto">
+        <ul class="list-inline mb-0">
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/desktop'>
+                    <i class="fas fa-home"></i>
+                    <br>
+                    Transaction
+                </a>
+            </li>
+
+            <li id="current-page" class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0 text-white" routerLink='/review'>
+                    <i class="fas fa-tags"></i>
+                    <br>
+                    Review
+                </a>
+            </li>
+
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/summary'>
+                    <i class="fas fa-chart-bar"></i>
+                    <br>
+                    Summary
+                </a>
+            </li>
+
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink="/report">
+                    <i class="fas fa-chart-pie"></i>
+                    <br>
+                    Reports
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

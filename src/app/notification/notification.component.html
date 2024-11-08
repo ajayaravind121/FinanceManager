@@ -1,0 +1,41 @@
+<!-- Top Navigations -->
+<div id="notification">
+    <nav id="top-nav" class="navbar navbar-expand-lg fixed-top">
+        <div class="ml-auto">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a class="nav-link" (click)="navigateBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="nav-link text-white">
+                        Notifications
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!-- Main -->
+<div class="row justify-content-center">
+    <div id="main" class="container mt-3 pl-1 pt-5 mx-auto">
+        <ul class="list-unstyled mb-0 col mt-3">
+            <li class="p-2 row" *ngFor="let notification of notifications">
+                <div class="main-content m-0 my-auto mr-auto">
+                    <a data-toggle="collapse" href="" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <p class="mb-0 pl-4 text-dark">
+                            <strong>{{ notification.title }}</strong>
+                            <i class="far fa-trash-alt text-secondary float-right"></i>
+                        </p>
+                        <p class="mb-0 pl-4 text-secondary category-title">{{ notification.content }}</p>
+                    </a>   
+                </div>
+                <div class="ml-auto my-auto text-muted row">
+                    <p class="mb-0 mr-4">{{ notification.date }}</p>
+                </div>
+            </li>    
+        </ul>
+    </div>
+</div>

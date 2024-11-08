@@ -1,0 +1,104 @@
+#top-nav {
+    background: #593481;
+    color: #c3b8d9;
+    z-index: 5;
+}
+
+#subnav {
+    background: #7143a3;
+    color: #c3b8d9;
+    z-index: 5;
+}
+
+#main {
+    z-index: 4;
+    position: absolute;
+    width: 99%;
+}
+
+#main ul li:last-child {
+    margin-bottom: 12rem;
+}
+
+#top-nav div a, #subnav div a, #bottom-nav ul li a {
+    color: #c3b8d9;
+}
+
+#top-nav ul li a:hover, #subnav ul li a:hover, #bottom-nav ul li a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+#main-content {
+    display: inline-block;
+}
+
+#main ul li:after {
+    content: ""; 
+    display: block;
+    margin: 0 auto;
+    width: 95%; 
+    padding-top: 1%;
+    border-bottom: 1px solid #cebce0ef; 
+}
+
+#main ul li:last-child::after {
+    border-bottom: none;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+#bottom-nav {
+    background: #593481;
+    color: #c3b8d9;
+    font-size: 1em;
+    z-index: 4;
+}
+
+#create-nav {
+    z-index: 4;
+}
+
+.desktop-title {
+    font-size: 1.1em;
+    color: black;
+}
+
+.desktop-tag {
+    font-size: .8em;
+    color: #e0d8f0;
+    background-color: #593481;
+}
+
+#current-page {
+    background: #8e66b8;
+}
+
+.current-status {
+    background: #8e66b8;
+}
+
+.bg-default-header {
+    background: #7143a3;
+}
+
+.text-dark-default {
+    color: #7143a3;
+}
+
+#view-status-nav {
+    z-index: 4;
+}
+
+.desktop-icon {
+    background-color: #FC4242;
+    font-size: 1.3em;
+    color: white;
+    font-weight: 585;
+}
+
+#account-options {
+    cursor: pointer;
+}

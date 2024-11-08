@@ -1,0 +1,173 @@
+<div class="wrapper">
+    <router-outlet></router-outlet>
+
+    <!-- Sidebar  -->
+    <nav id="sidebar" [ngClass]="{'active': sidebar == true}">
+        <div id="dismiss" (click)="sidebarToggler()">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <br><br>
+        <ul class="list-unstyled components">
+              
+            <li class="nav-item">
+                <a class="nav-link" (click)="sidebarToggler(); getAccounts();" data-target="#account-modal" data-toggle="modal">
+                    <i class="far fa-user"></i>&nbsp;&nbsp;&nbsp;Accounts
+                </a>
+            </li>
+            
+            <div class="dropdown-divider"></div>
+
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/desktop'><i class="fas fa-desktop"></i>&nbsp;&nbsp;&nbsp;Desktop</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/category'><i class="fas fa-clipboard-list"></i>&nbsp;&nbsp;&nbsp;Categories</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/template'><i class="far fa-file"></i>&nbsp;&nbsp;&nbsp;Templates</a>
+            </li>
+
+            <div class="dropdown-divider"></div>
+
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/uncategorized'><i class="fab fa-blackberry"></i>&nbsp;&nbsp;&nbsp;Uncategorized</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/history'><i class="fas fa-history"></i>&nbsp;&nbsp;&nbsp;History</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/recurringpayment'><i class="fas fa-sync"></i>&nbsp;&nbsp;&nbsp;Recurring Payment</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/plannedtransaction'><i class="fas fa-space-shuttle"></i>&nbsp;&nbsp;&nbsp;Planned transactions</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/transfer'><i class="fas fa-exchange-alt"></i>&nbsp;&nbsp;&nbsp;Transfers</a>
+            </li>
+            <!-- <div class="dropdown-divider"></div>
+            <li class="">
+                <a class="nav-link" href=""><i class="far fa-clone"></i>&nbsp;&nbsp;&nbsp;Backup</a>
+            </li> -->
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/file-upload'><i class="fas fa-file-excel"></i>&nbsp;&nbsp;&nbsp;Import, Export</a>
+            </li> 
+
+            <div class="dropdown-divider"></div>
+
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" href=""><i class="fas fa-cog"></i>&nbsp;&nbsp;&nbsp;Settings</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/about'><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;About</a>
+            </li>
+            <li class="">
+                <a class="nav-link" (click)="sidebarToggler()" routerLink='/signin' (click)='signOut()'><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;&nbsp;Sign out</a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav id="collapseButton" [ngClass]="{'fixed-top': collapseButton == true}" class="navbar navbar-expand-lg navbar-light w-25">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" (click)="sidebarToggler()" class="btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="overlay" (click)="sidebarToggler()" [ngClass]="{'active': overlay == true}"></div>
+
+<div class="modal fade" id="account-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-default p-2 pl-3 pr-3">
+                <h5 class="modal-title">Accounts</h5>
+                <button type="button" class="close" data-dismiss="modal" #closebutton aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-white p-4">
+                <div *ngFor="let account of accounts; let i=index" class="mt-2">
+                    <input type="checkbox" [(ngModel)]="account.isChecked">
+                    <label class="pl-2 pb-0 mb-0">
+                        <p class="mb-0">{{account.name | titlecase}}</p>
+                    </label>
+                    <a class="ellipsis" (click)="toggleOption(i)">
+                        <i class="fas fa-ellipsis-v float-right mr-2 text-default"></i>
+                    </a>
+                    <div class="option row justify-content-end mr-2" *ngIf="val === i && show">
+                        <div class="w-25 ml-auto rounded position-absolute" id="account-options">
+                            <a class="text-dark nav-link" (click)="toggleOption(i); editAccount(i);" data-target="#new-account" data-toggle="modal" data-dismiss="modal">
+                                Edit
+                            </a>
+                            <a class="text-dark nav-link" (click)="toggleOption(i); createTransfer(i);">New Transfer</a>
+                            <a class="text-dark nav-link" (click)="toggleOption(i); deleteAccount(i);" data-dismiss="modal">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-0 pr-2 bg-white">
+                <a class="nav-link" (click)="createAccountForm.reset();" data-target="#new-account" data-toggle="modal" data-dismiss="modal">
+                    <i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;New Account
+                </a>
+                <button class="btn bg-default text-white pt-1 pb-1" id="closeTransferBtn" (click)="filterAccounts()" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="createAccountForm" novalidate autocomplete="off">
+    <div class="modal fade" data-backdrop="static" id="new-account" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-default p-2 pl-3 pr-3">
+                    <h5 *ngIf="!isEdit" class="modal-title">New account</h5>
+                    <h5 *ngIf="isEdit" class="modal-title">Edit account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-white">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-pencil-alt"></i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="name" class="form-control" placeholder="Enter the name" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-rupee-sign"></i>&nbsp;
+                          </span>
+                        </div>
+                        <input type="text" formControlName="current_amount" class="form-control" placeholder="Enter the initial amount" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">
+                            <i class="far fa-calendar-minus"></i>
+                          </span>
+                        </div>
+                        <input type="date" formControlName="date" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer p-0 pr-2 bg-white">
+                    <button *ngIf="!isEdit" type="button" (click)="onCreateAccount()" data-dismiss="modal" class="btn bg-default text-white pt-1 pb-1">
+                        Ok
+                    </button>
+                    <button *ngIf="isEdit" type="button" (click)="onEditAccount()" data-dismiss="modal" class="btn bg-default text-white pt-1 pb-1">
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

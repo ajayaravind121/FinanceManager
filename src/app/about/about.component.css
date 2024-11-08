@@ -1,0 +1,40 @@
+.top-nav {
+    background: #593481;
+    color: #c3b8d9;
+    z-index: 5;
+}
+
+.top-nav ul li a {
+    color: #c3b8d9;
+}
+
+.top-nav ul li a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.head {
+    background: #3a2154;
+    border-radius: 20px;
+    border-style: inset;
+    border-width: .7px;
+}
+
+#main {
+    z-index: 4;
+    position: absolute;
+    width: 99%;
+}
+
+footer {
+    z-index: 4;
+    background: #3a2154;
+}
+
+footer .icons a, a {
+    color: #c3b8d9;
+}
+
+footer .icons a:hover, a {
+    color: white;
+}

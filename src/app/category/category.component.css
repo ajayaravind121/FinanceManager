@@ -1,0 +1,150 @@
+#top-nav {
+    background: #593481;
+    color: #c3b8d9;
+    z-index: 5;
+}
+
+#subnav {
+    background: #7143a3;
+    color: #c3b8d9;
+    z-index: 5;
+}
+
+.main {
+    z-index: 4;
+    position: absolute;
+    width: 95%;
+}
+
+#top-nav div a, #subnav div a {
+    color: #c3b8d9;
+}
+
+#top-nav ul li a:hover, #subnav ul li a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+#main-content {
+    display: inline-block;
+}
+
+.line-border ul li:after
+, .line-border ul li .sub-cat:after
+, .starred-line:after 
+{
+    content: ""; 
+    display: block;
+    margin: 0 auto;
+    width: 90%; 
+    padding-top: 1%;
+    border-bottom: 1px solid #cebce0ef; 
+}
+
+.last-star-line:after {
+    border-bottom: none;
+}
+
+.line-border ul li:last-child::after
+, .line-border ul li .sub-cat:last-child::after
+{
+    display: none !important;
+}
+
+div.starred-line.rm-line:last-child::after {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+#create-nav {
+    z-index: 4;
+}
+
+.category-title {
+    font-size: 1.1em;
+    color: black ;
+}
+
+.history-border li::after {
+    content: ""; 
+    display: block;
+    margin: 0 auto;
+    width: 90%; 
+    padding-top: 1%;
+    border-bottom: 1px solid #cebce0ef; 
+}
+
+.history-border li:last-of-type::after {
+    border-bottom: none;
+}
+
+/* search box */
+
+#tools-nav .category-search a {
+    width: 20px;
+}
+
+#tools-nav .category-search a:hover {
+    width: 20px;
+}
+
+#tools-nav li {
+    position: relative;
+}
+
+li.category-search input, .category-clear-btn {
+    outline: 0;
+    border: 0;
+    display: block;
+    padding: 0;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 30px;
+    color: white;
+    background: #593481;
+
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+li.category-search input.category-input-active {
+    border: 1px solid #c3b8d9;
+    padding: 0 5px;
+    width: 192px;
+    left: -192px;
+}
+
+.category-clear-btn {
+    display: none;
+}
+
+.category-clear-active {
+    display: inline;
+    top: 8px;
+    left: -21px;
+    z-index: 2;
+    color: #c3b8d9;
+}
+
+li.category-search input::placeholder {
+    color: #c3b8d9;
+}
+
+.category-icon {
+    background-color: blue;
+    font-size: 1.3em;
+    color: white;
+    font-weight: 585;
+}

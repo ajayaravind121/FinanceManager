@@ -1,0 +1,68 @@
+<div id="uncategorized">
+    <nav id="top-nav" class="navbar navbar-expand-lg fixed-top">
+        <div class="ml-auto">
+            <ul id="tools-nav" class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a class="nav-link text-white">
+                       Uncategorized
+                    </a>
+                </li>
+                <li class="list-inline-item uncategorized-search icon m-0">
+                    <a class="nav-link pr-4" (click)="searchToggle()">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <input type="text" class="mt-2 pl-2 pr-2" [ngClass]="[ searchToggler ? 'uncategorized-input-active' : '']" placeholder="Search..."/>
+                    <button type="reset" class="btn uncategorized-clear-btn" [ngClass]="[ searchToggler ? 'uncategorized-clear-active' : '']" (click)="searchToggle()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </li>
+                <li class="list-inline-item mr-0">
+                    <a class="nav-link" routerLink='/notification'>
+                       <i class="far fa-bell"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item dropdown">
+                    <a class="nav-link" id="filter-sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="filter-sort-dropdown">
+                        <a class="dropdown-item text-dark" data-toggle="collapse" data-target=".navbar-collapse.show">Sort</a>
+                        <a class="dropdown-item text-dark" data-toggle="collapse" data-target=".navbar-collapse.show" routerLink='/filter'>Filter</a>
+                    </div>
+                </li>
+           </ul> 
+       </div>
+    </nav>
+</div>
+
+<!-- Main -->
+<div class="row justify-content-center">
+    <div id="main" class="container mt-3 pl-1 pt-5 mx-auto">
+        <ul class="list-unstyled mb-0 pt-3 col mt-3 rounded">
+            <li class="p-2 row" *ngFor="let uncategorized of uncategories">
+                <div>
+                    <img src="assets/images/icons/a1.png" class="img rounded-circle" width="50px" alt="">
+                </div>
+                <div class="main-content w-50 m-0 my-auto mr-auto">
+                    <a data-toggle="collapse" href="" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <p *ngIf="uncategorized.type === 'expense'" class="mb-0 pl-4 category-title text-danger">- ₹{{ uncategorized.amount }}</p>
+                        <p *ngIf="uncategorized.type === 'income'" class="mb-0 pl-4 category-title text-success">₹{{ uncategorized.amount }}</p>
+                        <p class="mb-0 pl-4 text-secondary">{{ uncategorized.category | titlecase }}, {{ uncategorized.title | titlecase }}</p>
+                        <p *ngIf="uncategorized.tag" class="pl-4 category-title text-white"><small class="bg-default rounded p-1 mb-1">{{ uncategorized.tag }}</small></p>
+                    </a>   
+                </div>
+                <div class="main-content my-auto">
+                    <p class="mb-0">{{ uncategorized.date }}</p>
+                </div>
+            </li>    
+        </ul>
+    </div>
+</div>
+
+<nav id="create-nav" class="navbar navbar-expand-lg fixed-bottom w-25 ml-auto text-warning">
+    <div class="ml-auto pr-4 pb-4">
+        <a routerLink="/create" (click)="enableComponent()" class="text-warning">
+            <i class="fas fa-plus-circle bg-white rounded-circle" style="font-size: 45px;"></i>
+        </a>
+    </div>
+</nav>

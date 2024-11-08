@@ -1,0 +1,353 @@
+<div id="create">
+    <nav id="top-nav" class="navbar navbar-expand-lg fixed-top">
+        <div class="ml-auto">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a class="nav-link text-white" (click)="navigateBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="nav-link text-white">
+                        {{ createName }}
+                    </a>
+                </li>
+            </ul> 
+        </div>
+    </nav>
+</div>
+
+<div class="row justify-content-center">
+    <div id="desktop" *ngIf="isDesktop || isUncategory || isHistory || isTemplate || isRecurringPayment || isPlannedTransaction" class="container-fluid rounded mt-5 pt-5">
+        <form [formGroup]="mainForm" (ngSubmit)="onCreateTransaction()" novalidate>
+            <table class="table table-borderless">
+                <!-- <tbody> -->
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-rupee-sign bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="number" autofocus formControlName="amount" class="form-control border-top-0 border-right-0 border-left-0" placeholder="0.00">
+                            </div>
+                        </td>
+                    </tr>
+                <!-- </tbody> -->
+            </table> 
+            <br>
+
+            <table class="table table-borderless">
+                <tr>
+                    <td class="p-0 pr-4">
+                        <i class="fas fa-wallet bg-icon" style="font-size: 23px;"></i>
+                    </td>
+                    <td class="p-0">
+                        <div class="form-check form-check-inline custom-control custom-radio custom-control-inline">
+                            <input formControlName="type" class="form-check-input custom-control-input" type="radio" id="expense" value="expense">
+                            <label class="form-check-label custom-control-label" for="expense">Expense</label>
+                        </div>
+                    </td>
+                    <td class="p-0">
+                        <div class="form-check form-check-inline custom-control custom-radio custom-control-inline">
+                            <input formControlName="type" class="form-check-input custom-control-input" type="radio" id="income" value="income">
+                            <label class="form-check-label custom-control-label" for="income">Income</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-puzzle-piece bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input formControlName="category" type="text" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Select category" list="categories">
+                                <datalist id="categories">
+                                    <option value="{{ subCategory.name | titlecase }}" *ngFor="let subCategory of subCategories">
+                                        {{ subCategory.name | titlecase }}
+                                    </option> 
+                                </datalist>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-pencil-alt bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input formControlName="title" type="text" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Insert title">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-tag bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input formControlName="tag" type="text" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Add tag">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-sticky-note bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input formControlName="note" type="text" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Add note">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-user bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" formControlName="account" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Select Account" list="accounts">
+                                <datalist id="accounts">
+                                    <option value="{{ account.name | titlecase }}" *ngFor="let account of accounts">
+                                        {{ account.name | titlecase }}
+                                    </option> 
+                                </datalist>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!isTemplate">
+                        <td class="p-0 pr-4 text-nowrap">
+                            <i class="fas fa-calendar-minus bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="date" formControlName="date" class="form-control p-1 border-top-0 border-right-0 border-left-0">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table *ngIf="!isTemplate && !isRecurringPayment" class="table table-borderless">
+                <tr>
+                    <td class="p-0">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="save-as-template" id="save-as-template" value="save-as-template">
+                            <label class="form-check-label" for="save-as-template">Save as template</label>
+                        </div>
+                    </td>
+                    <td class="p-0">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="recurring-payment" id="recurring-payment" value="recurring-payment">
+                            <label class="form-check-label" for="recurring-payment">Recurring payment</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <div *ngIf="isRecurringPayment" class="form-check form-check-inline mb-4">
+                <input class="form-check-input" type="checkbox" name="recurring-payment" id="recurring-payment" value="recurring-payment">
+                <label class="form-check-label" for="recurring-payment"><h5 class="m-0">Recurring payment</h5></label>
+            </div>
+            
+            <table *ngIf="isRecurringPayment" class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td class="p-0 pt-2 pr-4">
+                            <i class="fas fa-history bg-icon" style="font-size: 23px;"></i>&nbsp;
+                            <label>Frequency</label>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" formControlName="frequency" class="form-control border-top-0 border-right-0 border-left-0" placeholder="In days...">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pt-2 pr-4">
+                            <i class="far fa-calendar-times bg-icon" style="font-size: 23px;"></i>&nbsp;
+                            <label>
+                                Start date
+                            </label> 
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="date" formControlName="start_date" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Select start date">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pt-2 pr-4">
+                            <i class="far fa-calendar-times bg-icon" style="font-size: 23px;"></i>&nbsp;
+                            <label>
+                                End date
+                            </label> 
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="date" formControlName="end_date" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Select end date">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            
+            <div class="container text-center mb-5">
+                <div class="text-center">
+                    <button class="btn btn-sm ok-btn col-4 bg-default" type="submit">Ok</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="category" *ngIf="isCategory" class="container-fluid rounded mt-5 pt-5">
+        <form [formGroup]="categoryForm" (ngSubmit)="onCreateCategory()" novalidate>
+            <br>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-pencil-alt bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" formControlName="name" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Enter the name">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-th-large bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" formControlName="parentName" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Parent category">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-palette bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="color" formControlName="color" class="form-control border-top-0 border-right-0 border-left-0 w-25" value="#ff0000">
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-percentage bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Default operation type">
+                            </div>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td class="p-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="type" value="expense">
+                                <label class="form-check-label" for="expense">Expense</label>
+                            </div>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="type" value="income">
+                                <label class="form-check-label" for="income">Income</label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <hr>
+            <div class="container text-center mb-5">
+                <div class="text-center">
+                    <button class="btn btn-sm ok-btn col-4 bg-default" type="submit">Ok</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="transfer" *ngIf="isTransfer" class="container-fluid rounded mt-5 pt-5">
+        <form [formGroup]="transferForm" (ngSubmit)="onCreateTransfer()" novalidate>
+            <br>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-rupee-sign bg-icon" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="number" formControlName="amount" class="form-control border-top-0 border-right-0 border-left-0" placeholder="0.00">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-upload bg-icon mt-1" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" formControlName="fromAccount" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Select source account" list="accounts">
+                                <datalist id="accounts">
+                                    <option value="{{ account.name | titlecase }}" *ngFor="let account of accounts">
+                                        {{ account.name | titlecase }}
+                                    </option> 
+                                </datalist>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-download bg-icon mt-1" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <input type="text" formControlName="toAccount" class="form-control border-top-0 border-right-0 border-left-0" placeholder="Select target account" list="accounts">
+                            <datalist id="accounts">
+                                <option value="{{ account.name | titlecase }}" *ngFor="let account of accounts">
+                                    {{ account.name | titlecase }}
+                                </option> 
+                            </datalist>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-pencil-alt bg-icon mt-3" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="text" formControlName="title" class="form-control border-top-0 border-right-0 border-left-0 mt-2" placeholder="Insert title">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 pr-4">
+                            <i class="fas fa-calendar bg-icon mt-1" style="font-size: 23px;"></i>
+                        </td>
+                        <td class="p-0">
+                            <div class="form-group">
+                                <input type="date" formControlName="date" class="form-control border-top-0 border-right-0 border-left-0" placeholder="date">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <hr>
+            <div class="container text-center mb-5">
+                <div class="text-center">
+                    <button class="btn btn-sm ok-btn col-4 bg-default" type="submit">Ok</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

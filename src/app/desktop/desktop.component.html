@@ -1,0 +1,156 @@
+<!-- Top Navigations -->
+<div id="desktop">
+    <nav id="top-nav" class="navbar navbar-expand-lg fixed-top">
+        <div class="ml-auto">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a class="nav-link text-white">
+                        Desktop
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="nav-link" routerLink='/notification'>
+                        <i class="far fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <section>
+        <nav id="subnav" class="navbar navbar-expand-lg fixed-top mt-5">
+            <div class="ml-auto">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <a class="nav-link">
+                            ₹00.00
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="nav-link">
+                            mm-yyyy
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="nav-link" routerLink="/filter">
+                            <i class="fas fa-filter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+</div>
+
+<!-- Main -->
+<div class="row justify-content-center">
+    <div id="main" class="container mt-5 pl-1 pt-5 mx-auto">
+        <ul class="list-unstyled mb-0 col mt-3">
+            <li class="p-2 row align-items-center" *ngFor="let transaction of transactions; let i=index" (click)="toggleOption(i)">
+                <div>
+                    <span [style.background-color]="transaction.color" class="desktop-icon rounded-circle p-2 pl-3 pr-3">{{ transaction.title | uppercase | slice:0:1 }}</span>
+                </div>
+                <div class="main-content w-50 m-0 my-auto mr-auto">
+                    <a data-toggle="collapse" href="" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <p class="mb-0 pl-4 text-secondary">{{ transaction.title | titlecase }}</p>
+                        <p class="mb-0 pl-4 desktop-title">{{ transaction.category['name'] | titlecase }}</p>
+                        <p *ngIf="transaction.tag" class="mb-0 pl-4"><span class="desktop-tag rounded p-1 pl-2 pr-2">{{ transaction.tag | lowercase }}</span></p>
+                    </a>   
+                </div>
+                <div class="main-content my-auto">
+                    <p class="mb-0 text-success" *ngIf="transaction.type === 'income'">₹{{ transaction.amount }}</p>
+                    <p class="mb-0 text-danger" *ngIf="transaction.type === 'expense'">- ₹{{ transaction.amount }}</p>
+                </div>
+                <div class="option row justify-content-end mr-2 my-auto" *ngIf="value === i && show">
+                    <div class="mt-3 ml-auto rounded position-absolute bg-white border" id="account-options">
+                        <a class="text-dark nav-link ml-3 mr-3">Edit</a>
+                        <a class="text-dark nav-link ml-3 mr-3" (click)="deleteTransaction(transaction.id)">Delete</a>
+                    </div>
+                </div>
+            </li>    
+        </ul>
+    </div>
+</div>
+
+<nav id="create-nav" class="navbar navbar-expand-lg fixed-bottom w-25 mb-5 ml-auto text-warning">
+    <div class="ml-auto pr-4 pb-4">
+        <a routerLink="/create" (click)="enableComponent()" class="text-warning">
+            <i class="fas fa-plus-circle bg-white rounded-circle" style="font-size: 45px;"></i>
+        </a>
+    </div>
+</nav>
+
+<nav id="view-status-nav" class="navbar navbar-expand-lg fixed-bottom w-75 mb-5 pl-1 mr-auto">
+    <div id="accordion" class="mr-auto">
+        <a class="text-warning" data-toggle="collapse" data-parent="#accordion" href="#status">
+            <div class="bg-default-header text-white rounded-top">
+                <span class="mb-0 pl-3 pr-5 text-nowrap">
+                    <span><i class="fas fa-wallet"></i> &nbsp; Wallet</span>
+                </span>
+                <span class="pr-2 float-right"><i class="fas fa-times"></i></span>
+            </div>
+        </a>
+
+        <div id="status" class="collapse-status collapse">
+            <div class="mb-0 bg-light text-left text-nowrap rounded" data-toggle="collapse" href="" role="button" aria-expanded="false">
+                <div class="current-status">
+                    <p class="mb-0 p-1 pl-3 text-white">Available</p>
+                    <p class="mb-0 p-1 pl-3 text-white"><small>Until 30-09-2020</small></p>
+                    <p class="mb-0 p-1 pl-3 text-white">₹ 20,00,000</p>
+                </div>
+                <div class="bg-white border rounded-bottom">
+                    <p class="mb-0 p-1 pl-3 pt-3">
+                        <i class="fas fa-money-bill-wave text-dark-default"></i>
+                        <span class="pl-1 text-secondary">Current</span>
+                        <span class="ml-5 mr-3 text-secondary">₹16,995.00</span>
+                    </p>
+                    <p class="mb-0 p-1 pl-3 pb-3">
+                        <i class="fas fa-clock text-dark-default"></i>
+                        <span class="pl-2 text-secondary">Planned</span>
+                        <span class="ml-5 mr-3 text-secondary">₹20,995.00</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Bottom Navigations -->
+<nav id="bottom-nav" class="navbar navbar-expand-lg fixed-bottom text-nowrap p-0">
+    <div class="mx-auto">
+        <ul class="list-inline mb-0">
+            <li id="current-page" class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0 text-white" routerLink='/desktop'>
+                    <i class="fas fa-home"></i>
+                    <br>
+                    Transaction
+                </a>
+            </li>
+            
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/review'>
+                    <i class="fas fa-tags"></i>
+                    <br>
+                    Review
+                </a>
+            </li>
+            
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/summary'>
+                    <i class="fas fa-chart-bar"></i>
+                    <br>
+                    Summary
+                </a>
+            </li>
+            
+            <li class="list-inline-item p-1 text-center">
+                <a class="nav-link p-0" routerLink='/report'>
+                    <i class="fas fa-chart-pie"></i>
+                    <br>
+                    Reports
+                </a>
+            </li>           
+        </ul>
+    </div>
+</nav>

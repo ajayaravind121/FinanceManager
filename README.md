@@ -15,7 +15,7 @@ It facilitates users to manage their revenue and expenses, cash flow, long-term 
 ## 💻 Setup
 - Clone the repository
 
-    ` git clone https://github.com/amirtha4501/FinanceManager.git `
+    ` git clone https://github.com/ajayaravind121/FinanceManager.git `
 - Boot up a terminal on the directory.
 - Run the website on localhost
     - To run
